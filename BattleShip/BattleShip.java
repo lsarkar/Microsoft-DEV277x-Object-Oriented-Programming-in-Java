@@ -14,7 +14,6 @@ public class BattleShip {
         deployPlayerShips();
 
         createOceanMap();
-
     }
 
     public static void printRow() {
@@ -53,7 +52,6 @@ public class BattleShip {
         System.out.print(String.format("Enter X coordinate for your %d. ship: ", shipNumber));
         shipPos[0] = input.nextInt();
 
-
         System.out.print(String.format("Enter Y coordinate for your %d. ship: ", shipNumber));
         shipPos[1] = input.nextInt();
 
@@ -68,13 +66,21 @@ public class BattleShip {
         int x = coords[0];
         int y = coords[1];
 
+        // check x range
         if (x > xMaxValue || x < 0 || y > yMaxValue || y < 0) {
             System.out.println("X coordinate out of range, must be in range 0 : " + xMaxValue);
             return false;
         }
 
+        // check y range
         if (y > yMaxValue || y < 0) {
             System.out.println("Y coordinate out of range, must be in range 0 : " + yMaxValue);
+            return false;
+        }
+
+        // check if ship already exists in current space
+        if (battleShipGrid[x][y] == 1) {
+            System.out.println(String.format("Invalid coordinate. Ship already placed at position %s,%s" , x, y));
             return false;
         }
 
