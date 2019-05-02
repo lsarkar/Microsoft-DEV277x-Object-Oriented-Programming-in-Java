@@ -1,11 +1,18 @@
 import java.util.Scanner;
+import java.util.Random;
+
+// TODO fix bug when entering invalid coords for a 2nd time in a row
 
 public class BattleShip {
 
     public static int[][] battleShipGrid = new int[10][10];
     public static int playerShipCount;
+    public static int MAX_SHIPS = 5;
 
     public static void main(String[] args) {
+
+        deployComputerShips();
+
         System.out.println("**** Welcome to Battle Ships game ****\n\nRight now, the sea is empty\n");
         createOceanMap();
         playerShipCount = 1;
@@ -24,13 +31,21 @@ public class BattleShip {
         System.out.println();
     }
 
+    public static int getXGridMax() {
+        return battleShipGrid.length -1;
+    }
+
+    public static int getYGridMax() {
+        return battleShipGrid[0].length -1;
+    }
+
     public static void deployPlayerShips() {
-        int maxShips = 5;
         Scanner input = new Scanner(System.in);
 
         System.out.println("Deploy your ships");
 
-        for (int i=1; i<=maxShips; i++) {
+        for (int i=1; i<=MAX_SHIPS; i++) {
+
 
             final int[] coords = getXYCoords(i);
             if (!isCoordsInRange(coords)) {
@@ -42,6 +57,46 @@ public class BattleShip {
         }
 
     }
+
+    public static void deployComputerShips() {
+
+        System.out.println("Computer is deploying ships");
+
+        for (int i=1; i<=MAX_SHIPS; i++) {
+            // add 0.5 second delay to computer deployment per ship
+
+            try {
+                Thread.sleep(500);
+            }
+            catch (InterruptedException e) {
+
+            }
+            int[] coords = generateRandom();
+
+            while(!isCoordsInRange(coords)) {
+                coords = generateRandom();
+            }
+
+            // put computer ship in the ocean grid
+            battleShipGrid[coords[0]][coords[1]] = 2;
+
+            System.out.println(String.format("%d. ship DEPLOYED" , i));
+        }
+    }
+
+    public static int[] generateRandom() {
+        int[] randXY = new int[2];
+
+        final Random rand = new Random();
+
+        // generates a random integer between 0 and map range
+        randXY[0] = rand.nextInt(getXGridMax()+1);
+        randXY[1] = rand.nextInt(getYGridMax()+1);
+
+        return randXY;
+    }
+
+
 
     public static int[] getXYCoords(int shipNumber) {
 
