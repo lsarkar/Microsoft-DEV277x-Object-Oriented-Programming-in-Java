@@ -11,13 +11,22 @@ public class BattleShip {
 
     public static final char SHIP_PLAYER = '@';
     public static final int SHIP_COMPUTER = 2;
-    public static char[][] battleShipGrid = new char[10][10];
+    public static char[][] ocean = new char[10][10];
     public static int MAX_SHIPS = 5;
     public static int playerLives;
     public static int computerLives;
     public static boolean gameOver = false;
 
     public static void main(String[] args) {
+
+        tester.test();
+        tester.question2();
+        tester.question3();
+        tester.q8();
+        tester.q9();
+        tester.q5();
+
+        tester.helloworld();
 
         System.out.println("**** Welcome to Battle Ships game ****\n\nRight now, the sea is empty\n");
 
@@ -36,18 +45,18 @@ public class BattleShip {
 
     public static void printRow() {
         System.out.print("   ");
-        for (int row = 0; row<battleShipGrid[0].length; row++) {
+        for (int row = 0; row< ocean[0].length; row++) {
             System.out.print(row);
         }
         System.out.println();
     }
 
     public static int getXGridMax() {
-        return battleShipGrid.length -1;
+        return ocean.length -1;
     }
 
     public static int getYGridMax() {
-        return battleShipGrid[0].length -1;
+        return ocean[0].length -1;
     }
 
     public static void deployPlayerShips() {
@@ -61,7 +70,7 @@ public class BattleShip {
                 coords = getXYCoords(i);
             }
 
-            battleShipGrid[coords[0]][coords[1]] = SHIP_PLAYER;
+            ocean[coords[0]][coords[1]] = SHIP_PLAYER;
         }
 
     }
@@ -86,7 +95,7 @@ public class BattleShip {
             }
 
             // put computer ship in the ocean grid
-            battleShipGrid[coords[0]][coords[1]] = SHIP_COMPUTER;
+            ocean[coords[0]][coords[1]] = SHIP_COMPUTER;
             System.out.println(String.format("%d. ship DEPLOYED" , i));
         }
     }
@@ -161,7 +170,7 @@ public class BattleShip {
 
     public static int[] validateHit(int[] coord, String turn, ArrayList<int[]> computerGuess) {
 
-        int mapValue = battleShipGrid[coord[0]][coord[1]];
+        int mapValue = ocean[coord[0]][coord[1]];
 
         // times a player is hit 1st element, computer hits 2nd element
         int[] hits = new int[2];
@@ -174,17 +183,17 @@ public class BattleShip {
 
                 case SHIP_COMPUTER:
                     System.out.println("Boom! You sunk the ship!");
-                    battleShipGrid[coord[0]][coord[1]] = '!';
+                    ocean[coord[0]][coord[1]] = '!';
                     hits[1] = 1;
                     break;
                 case SHIP_PLAYER:
                     System.out.println("Oh no, you sunk your own ship :(");
-                    battleShipGrid[coord[0]][coord[1]] = 'x';
+                    ocean[coord[0]][coord[1]] = 'x';
                     hits[0] = 1;
                     break;
                 default:
                     System.out.println("Sorry, you missed");
-                    battleShipGrid[coord[0]][coord[1]] = '-';
+                    ocean[coord[0]][coord[1]] = '-';
             }
         }
 
@@ -198,12 +207,12 @@ public class BattleShip {
 
                 case SHIP_COMPUTER:
                     System.out.println("The Computer sunk one of its own ships");
-                    battleShipGrid[coord[0]][coord[1]] = '!';
+                    ocean[coord[0]][coord[1]] = '!';
                     hits[1] = 1;
                     break;
                 case SHIP_PLAYER:
                     System.out.println("The Computer sunk one of your ships!");
-                    battleShipGrid[coord[0]][coord[1]] = 'x';
+                    ocean[coord[0]][coord[1]] = 'x';
                     hits[0] = 1;
                     break;
                 default:
@@ -285,7 +294,7 @@ public class BattleShip {
     public static boolean isSpaceTakenByPlayerShip(int x, int y) {
 
         // check if ship already exists in current space
-        if (battleShipGrid[x][y] == SHIP_PLAYER) {
+        if (ocean[x][y] == SHIP_PLAYER) {
             return false;
         }
         else {
@@ -308,7 +317,7 @@ public class BattleShip {
         }
 
         // check if ship already exists in current space
-        if (battleShipGrid[x][y] == 1) {
+        if (ocean[x][y] == 1) {
             System.out.println(String.format("Invalid coordinate. Ship already placed at position %s,%s" , x, y));
             return false;
         }
@@ -328,51 +337,22 @@ public class BattleShip {
         }
 
         System.out.println("-----------------------------");
-
     }
 
     public static void createOceanMap() {
 
         printRow();
 
-        for (int row = 0; row < battleShipGrid.length; row++) {
+        for (int row = 0; row < ocean.length; row++) {
 
             System.out.print("\n" + row + " |");
 
-            for (int col = 0; col < battleShipGrid[row].length; col++) {
+            for (int col = 0; col < ocean[row].length; col++) {
 
-                if (battleShipGrid[row][col] == 0)
+                if (ocean[row][col] == 0)
                     System.out.print(" ");
                 else
-                    System.out.print(battleShipGrid[row][col]);
-                /*
-                if (col == 0) {
-                    System.out.print(row + " | ");
-                }
-                else if (col == battleShipGrid[row].length - 1) {
-                    System.out.print(" | " + row);
-                }
-                else {
-
-                    // if a battleship is present, display it in the ocean map as "@"
-                    if (battleShipGrid[row][col] == SHIP_PLAYER) {
-                        // display players ship with special symbol
-                        System.out.print("@");
-                    }
-                    else if (battleShipGrid[row][col] == 'x') {
-                        System.out.print("x");
-                    }
-                    else if (battleShipGrid[row][col] == '!') {
-                        System.out.print("!");
-                    }
-                    else if (battleShipGrid[row][col] == '-') {
-                        System.out.print("-");
-                    }
-                    else {
-                        System.out.print(" ");
-                    }
-                }
-                */
+                    System.out.print(ocean[row][col]);
 
             }
             System.out.print("| " + row);
