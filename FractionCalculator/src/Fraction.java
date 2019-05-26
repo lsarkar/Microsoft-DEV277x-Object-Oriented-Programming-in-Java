@@ -1,6 +1,5 @@
 public class Fraction {
 
-
     private int numerator;
     private int denominator;
 
@@ -44,6 +43,7 @@ public class Fraction {
 
     @Override
     public String toString() {
+        toLowestTerms();
         return String.format("%d/%d", this.numerator, this.denominator);
     }
 
@@ -136,6 +136,4 @@ public class Fraction {
 
         return a;
     }
-
-
 }
