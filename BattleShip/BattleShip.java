@@ -3,10 +3,6 @@ import java.util.Scanner;
 import java.util.Random;
 
 
-
-// TODO: don't allow a hit on a ship where player has already gone for
-
-
 public class BattleShip {
 
     public static final char SHIP_PLAYER = '@';
@@ -18,15 +14,6 @@ public class BattleShip {
     public static boolean gameOver = false;
 
     public static void main(String[] args) {
-
-        tester.test();
-        tester.question2();
-        tester.question3();
-        tester.q8();
-        tester.q9();
-        tester.q5();
-
-        tester.helloworld();
 
         System.out.println("**** Welcome to Battle Ships game ****\n\nRight now, the sea is empty\n");
 
@@ -72,7 +59,6 @@ public class BattleShip {
 
             ocean[coords[0]][coords[1]] = SHIP_PLAYER;
         }
-
     }
 
     public static void deployComputerShips() {
@@ -274,7 +260,6 @@ public class BattleShip {
         }
     }
 
-
     public static boolean deployCheckForComputer(int[] coords) {
 
         if (!checkGridRange(coords, false)) {
@@ -362,7 +347,4 @@ public class BattleShip {
 
         printRow();
     }
-
 }
-
-
