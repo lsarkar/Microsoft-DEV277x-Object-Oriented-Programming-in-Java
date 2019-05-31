@@ -1,10 +1,11 @@
-public class Accountant extends Employee implements IBonusApproval {
+// done
 
-    protected TechnicalLead supportedLead;
+public class Accountant extends BusinessEmployee {
+
+    protected TechnicalLead supportedLead = null;
     protected BusinessLead manager;
 
-    protected static double PERCENT_SALARY_INC = 1.1;
-    protected double bonusBudget;
+    protected static double PERCENT_BONUS_BUDGET = 1.1;
 
     public Accountant(String name) {
         //TODO: modify base salary
@@ -13,31 +14,35 @@ public class Accountant extends Employee implements IBonusApproval {
     }
 
     public TechnicalLead getTeamSupported() {
+
         return this.supportedLead;
     }
 
     public void supportTeam(TechnicalLead lead){
         this.supportedLead = lead;
 
-        // TODO calculate base salary based on SW engineers
         for (Employee e : this.supportedLead.getDirectReports()) {
-            this.baseSalary += e.getBaseSalary();
+            this.bonusBudget += e.getBaseSalary();
         }
 
-        this.baseSalary *= PERCENT_SALARY_INC;
+        this.bonusBudget *= PERCENT_BONUS_BUDGET;
 
     }
 
-    private void calculateSalary() {
+    public boolean approveBonus(double bonus) {
+        if (this.supportedLead == null) {
+            return false;
+        }
 
-    }
-
-    public boolean approveBonus(Employee e, double bonus) {
-        return false;
+        return bonus < this.bonusBudget;
     }
 
     public String employeeStatus() {
-        return null;
+        return this.ID + " " + this.name + "with a budget of " + this.bonusBudget + " is supporting " + this.supportedLead.getName();
+    }
+
+    public Employee getEmployee() {
+        return this.manager;
     }
 
 }

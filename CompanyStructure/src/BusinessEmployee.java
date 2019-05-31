@@ -1,6 +1,10 @@
+// done
+
 public class BusinessEmployee extends Employee {
 
-    private static double DEFAULT_BASE_SALARY = 50000;
+    protected static double DEFAULT_BASE_SALARY = 50000;
+    protected double bonusBudget;
+
 
     public BusinessEmployee(String name) {
         super(name, DEFAULT_BASE_SALARY);
@@ -11,11 +15,12 @@ public class BusinessEmployee extends Employee {
     }
 
     public double getBonusBudget() {
-        return 0;
+
+        return this.bonusBudget;
     }
 
     public String employeeStatus() {
-        return ID + " " + name + " with a budget of " + getBonusBudget();
+        return ID + " " + name + " with a budget of " + this.bonusBudget;
     }
 
 }

@@ -1,6 +1,9 @@
+// done
+
 public class SoftwareEngineer extends TechnicalEmployee {
 
     private boolean hasCodeAccess;
+    private TechnicalLead manager;
 
     public SoftwareEngineer(String name) {
         super(name);
@@ -20,15 +23,19 @@ public class SoftwareEngineer extends TechnicalEmployee {
         return this.successfulCheckinCount;
     }
 
-    public boolean checkInCode(boolean managerApproval) {
+    public boolean checkInCode() {
 
-        if (managerApproval) {
+        if (this.manager.approveCheckin(this)) {
             this.successfulCheckinCount++;
             return true;
         }
         else {
             return false;
         }
+    }
+
+    public Employee getManager() {
+        return this.manager;
     }
 
 }

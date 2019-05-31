@@ -1,4 +1,6 @@
-public class TechnicalEmployee extends Employee{
+// done
+
+public class TechnicalEmployee extends Employee {
 
     protected static double DEFAULT_BASE_SALARY = 75000;
     protected int successfulCheckinCount = 0;
